@@ -1,19 +1,21 @@
 package es.santescas.shoppingList.controller;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection="products")
 public class ShopItemDto {
 	
+	@Id
 	private String name;
-	private int amount;
-	
+
 	public ShopItemDto() {
 		super();
 	}
 	
-	public ShopItemDto(String name, int amount) {
+	public ShopItemDto(String name) {
 		super();
 		this.name = name;
-		this.amount = amount;
 	}
 	
 	public String getName() {
@@ -22,12 +24,5 @@ public class ShopItemDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getAmount() {
-		return amount;
-	}
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
 	
 }

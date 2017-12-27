@@ -10,15 +10,15 @@ import es.santescas.shoppingList.controller.ShopItemDto;
 
 @Repository
 @EnableAutoConfiguration
-public class ShopItemRepositoryInMemory implements ShopItemsRepository{
+public class ShopItemRepositoryInMemory implements ShopItemsRepository {
 	
 	private List<ShopItemDto> items;
 	
-	public ShopItemRepositoryInMemory(){
+	public ShopItemRepositoryInMemory() {
 		items = new ArrayList<>();
-		ShopItemDto itemLeche=new ShopItemDto("leche", 6);
-		ShopItemDto itemCerveza=new ShopItemDto("cerveza",12);
-		ShopItemDto itemHuevos=new ShopItemDto("cerveza",24);
+		ShopItemDto itemLeche=new ShopItemDto("leche");
+		ShopItemDto itemCerveza=new ShopItemDto("cerveza");
+		ShopItemDto itemHuevos=new ShopItemDto("cerveza");
 		
 		
 		items.add(itemLeche);
@@ -36,6 +36,28 @@ public class ShopItemRepositoryInMemory implements ShopItemsRepository{
 		items.add(shopItem);
 		return shopItem;
 	}
+	
+	@Override
+	public Boolean removeShopItem(int shopItemIndex) {
+		ShopItemDto itemDeleted = null;
+		boolean deletedOk = false;
+		try {
+			itemDeleted = items.remove(shopItemIndex);
+			if(itemDeleted!=null) {
+				deletedOk = true;
+			}
+		} catch (IndexOutOfBoundsException e) {
+			
+		}
+		
+		return deletedOk;
+	}
+//	@Override
+//	public List<ShopItemDto> removeShopItem(int shopItemIndex) {
+//		List<ShopItemDto> newList = new ArrayList<>();
+//		newList = (List<ShopItemDto>) items.remove(shopItemIndex);
+//		return newList;
+//	}
 	
 
 }

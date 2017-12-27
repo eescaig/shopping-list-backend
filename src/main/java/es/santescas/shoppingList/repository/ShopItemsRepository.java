@@ -9,4 +9,6 @@ public interface ShopItemsRepository {
 	List<ShopItemDto> getShopItems();
 	
 	ShopItemDto addShopItem(ShopItemDto shopItem);
+	
+	Boolean removeShopItem(int shopItemIndex);
 }
