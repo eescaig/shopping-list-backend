@@ -16,15 +16,19 @@ public class ShopListDto {
 	@Id
 	private String nameList;
 	private List<ItemShopList> list;
-
+	
 	public ShopListDto() {
-		super();
-	}
 		
+	}
+	
 	public ShopListDto(String nameList, List<ItemShopList> list) {
-		super();
 		this.nameList = nameList;
 		this.list = list;
+	}
+
+	@Override
+	public String toString() {
+		return "ShopListDto [nameList=" + nameList + ", list=" + list + "]";
 	}
 
 	public String getNameList() {

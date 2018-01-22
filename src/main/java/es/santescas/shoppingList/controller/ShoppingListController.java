@@ -2,9 +2,9 @@ package es.santescas.shoppingList.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,33 +14,35 @@ import org.springframework.web.bind.annotation.RestController;
 import es.santescas.shoppingList.repository.ShoppingListRepositoryMongoDb;
 
 @RestController
-@EnableAutoConfiguration
+@RequestMapping(path="api/shoppingList")
 public class ShoppingListController {
-	
-	private static final String SHOP_LIST = "shopList";
-	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingListController.class);
+
 	@Autowired
 	private ShoppingListRepositoryMongoDb repository;
 	
-	@CrossOrigin
-	@RequestMapping(method=RequestMethod.GET,path=SHOP_LIST)
+	@RequestMapping(method=RequestMethod.GET)
     public List<ShopListDto> getShoppingList() {
 		
         return repository.findAll();
     }
 	
-	@CrossOrigin
-	@RequestMapping(method=RequestMethod.POST,path=SHOP_LIST)
+	@RequestMapping(method=RequestMethod.POST)
 	public ShopListDto setShoppingList(@RequestBody ShopListDto shoppingList) {
 		
-		return repository.insert(shoppingList);
+		ShopListDto newList = repository.insert(shoppingList);
+		if (newList != null) {
+			LOGGER.info("Se ha insertado la lista: " + newList.toString());
+		}
+
+		return newList;
 	}
 	
-	@CrossOrigin
-	@RequestMapping(method=RequestMethod.DELETE,path=SHOP_LIST+"/{nameList}")
-	public void removeShopItem(@PathVariable(value="nameList") String nameList) {
+	@RequestMapping(method=RequestMethod.DELETE,path="/{nameList}")
+	public void removeShoppingList(@PathVariable(value = "nameList") String idList) {
 		
-		repository.delete(nameList);
+		repository.delete(idList);
 	}
 
 }

@@ -10,5 +10,5 @@ public interface ShopItemsRepository {
 	
 	ShopItemDto addShopItem(ShopItemDto shopItem);
 	
-	Boolean removeShopItem(int shopItemIndex);
+	boolean removeShopItem(int shopItemIndex);
 }

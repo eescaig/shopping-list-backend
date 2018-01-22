@@ -8,14 +8,18 @@ public class ShopItemDto {
 	
 	@Id
 	private String name;
-
+	
 	public ShopItemDto() {
-		super();
+		
+	}
+
+	public ShopItemDto(String name) {
+		this.name = name;
 	}
 	
-	public ShopItemDto(String name) {
-		super();
-		this.name = name;
+	@Override
+	public String toString() {
+		return "ShopItemDto [name=" + name + "]";
 	}
 	
 	public String getName() {

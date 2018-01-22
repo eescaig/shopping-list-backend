@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import es.santescas.shoppingList.controller.ShopItemDto;
 
 @Repository
-@EnableAutoConfiguration
 public class ShopItemRepositoryInMemory implements ShopItemsRepository {
 	
 	private List<ShopItemDto> items;
@@ -38,7 +37,7 @@ public class ShopItemRepositoryInMemory implements ShopItemsRepository {
 	}
 	
 	@Override
-	public Boolean removeShopItem(int shopItemIndex) {
+	public boolean removeShopItem(int shopItemIndex) {
 		ShopItemDto itemDeleted = null;
 		boolean deletedOk = false;
 		try {
@@ -52,12 +51,5 @@ public class ShopItemRepositoryInMemory implements ShopItemsRepository {
 		
 		return deletedOk;
 	}
-//	@Override
-//	public List<ShopItemDto> removeShopItem(int shopItemIndex) {
-//		List<ShopItemDto> newList = new ArrayList<>();
-//		newList = (List<ShopItemDto>) items.remove(shopItemIndex);
-//		return newList;
-//	}
-	
 
 }

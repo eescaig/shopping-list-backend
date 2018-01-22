@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import es.santescas.shoppingList.repository.ShopItemsRepository;
 
 @RestController
-@EnableAutoConfiguration
 public class ShoppingListOldController {
 
 	@Autowired

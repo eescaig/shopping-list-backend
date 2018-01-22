@@ -2,9 +2,9 @@ package es.santescas.shoppingList.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,30 +15,32 @@ import es.santescas.shoppingList.repository.ItemsListRepositoryMongoDb;
 
 
 @RestController
-@EnableAutoConfiguration
+@RequestMapping(path="api/shopItem")
 public class ShoppingItemController {
 	
-	private static final String SHOP_ITEM = "shopItem";
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingItemController.class);
+
 	@Autowired
 	private ItemsListRepositoryMongoDb repository;
 	
-	@CrossOrigin
-	@RequestMapping(method=RequestMethod.GET,path=SHOP_ITEM)
+	@RequestMapping(method=RequestMethod.GET)
     public List<ShopItemDto> getShopItems() {
 		
         return repository.findAll();
     }
 	
-	@CrossOrigin
-	@RequestMapping(method=RequestMethod.POST,path=SHOP_ITEM)
+	@RequestMapping(method=RequestMethod.POST)
 	public ShopItemDto setShopItems(@RequestBody ShopItemDto shopItem) {
+
+		ShopItemDto newItem = repository.insert(shopItem);
+		if (newItem != null) {
+			LOGGER.info("Se ha insertado el item: " + newItem.toString());
+		}
 		
-		return repository.insert(shopItem);
+		return newItem;
 	}
 	
-	@CrossOrigin
-	@RequestMapping(method=RequestMethod.DELETE,path=SHOP_ITEM+"/{name}")
+	@RequestMapping(method=RequestMethod.DELETE,path="/{name}")
 	public void removeShopItem(@PathVariable(value="name") String shopItemName) {
 		
 		repository.delete(shopItemName);

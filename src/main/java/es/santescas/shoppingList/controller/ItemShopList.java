@@ -1,6 +1,5 @@
 package es.santescas.shoppingList.controller;
 
-import org.springframework.data.annotation.Id;
 
 /**
  * Clase que contiene la estructura de las listas de compras.
@@ -13,15 +12,19 @@ public class ItemShopList {
 	private Integer amount;
 	
 	public ItemShopList() {
-		super();
-	}
 		
+	}
+	
 	public ItemShopList(ShopItemDto item, Integer amount) {
-		super();
 		this.item = item;
 		this.amount =  amount;
 	}
 	
+	@Override
+	public String toString() {
+		return "ItemShopList [item=" + item + ", amount=" + amount + "]";
+	}
+
 	public ShopItemDto getItem() {
 		return item;
 	}
